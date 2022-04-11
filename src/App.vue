@@ -1,28 +1,66 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="content">
+    <TagList :tags="tags" :align="align" :tagTextWrap="tagTextWrap" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import TagList from './components/TagList.vue';
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld,
+    TagList,
+  },
+
+  data: () => ({
+    tags: [],
+    align: 'left',
+    tagTextWrap: true,
+  }),
+
+  created() {
+    this.getTags().then((tags) => {
+      this.tags = tags;
+    });
+  },
+
+  methods: {
+    async getTags() {
+      /**
+       * something api call
+       * e.g. const tags = await axios.get('/api/tags');
+       */
+      const tags = [
+        {
+          text: '4,3',
+          icon: 'mdi-star-outline',
+        },
+        {
+          text: 'Фридландские ворота',
+        },
+        {
+          text: '1,2 км от вас',
+        },
+      ];
+
+      return tags;
+    },
   },
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body {
+  color: #191919;
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.content {
+  margin: 40px;
 }
 </style>
